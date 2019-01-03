@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -309,7 +308,6 @@ public class BaseActor extends Actor {
 
     public void alignCamera() {
         Camera cam = getStage().getCamera();
-        Viewport v = getStage().getViewport();
 
         cam.position.set(getX() + getOriginX(), getY() + getOriginY(), 0);
 
