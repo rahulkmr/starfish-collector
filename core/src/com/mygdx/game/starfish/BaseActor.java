@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -303,5 +305,18 @@ public class BaseActor extends Actor {
         // check top edge
         if (getY() + getHeight() > worldBounds.height)
             setY(worldBounds.height - getHeight());
+    }
+
+    public void alignCamera() {
+        Camera cam = getStage().getCamera();
+        Viewport v = getStage().getViewport();
+
+        cam.position.set(getX() + getOriginX(), getY() + getOriginY(), 0);
+
+        cam.position.x = MathUtils.clamp(cam.position.x, cam.viewportWidth / 2,
+                worldBounds.width - cam.viewportWidth / 2);
+        cam.position.y = MathUtils.clamp(cam.position.y, cam.viewportHeight / 2,
+                worldBounds.height - cam.viewportHeight / 2);
+        cam.update();
     }
 }
