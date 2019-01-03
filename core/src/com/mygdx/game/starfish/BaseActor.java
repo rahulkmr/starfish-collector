@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Intersector.MinimumTranslationVector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Intersector;
@@ -238,5 +239,20 @@ public class BaseActor extends Actor {
 
     public void setOpacity(float opacity) {
         this.getColor().a = opacity;
+    }
+
+
+    public Vector2 preventOverlap(BaseActor other) {
+        Polygon poly1 = this.getBoundaryPolygon();
+        Polygon poly2 = other.getBoundaryPolygon();
+        // initial test to improve performance
+        if (!poly1.getBoundingRectangle().overlaps(poly2.getBoundingRectangle()))
+            return null;
+        MinimumTranslationVector mtv = new MinimumTranslationVector();
+        boolean polygonOverlap = Intersector.overlapConvexPolygons(poly1, poly2, mtv);
+        if (!polygonOverlap)
+            return null;
+        this.moveBy(mtv.normal.x * mtv.depth, mtv.normal.y * mtv.depth);
+        return mtv.normal;
     }
 }
