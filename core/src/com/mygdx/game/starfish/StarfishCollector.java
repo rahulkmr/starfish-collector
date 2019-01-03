@@ -46,7 +46,7 @@ public class StarfishCollector extends GameBeta {
 
         if (BaseActor.count(mainStage, "com.mygdx.game.starfish.Starfish") == 0 && !win) {
             win = true;
-            BaseActor youWinMessage = new BaseActor(0, 0, mainStage);
+            BaseActor youWinMessage = new BaseActor(0, 0, uiStage);
             youWinMessage.loadTexture("you-win.png");
             youWinMessage.centerAtPosition(400, 300);
             youWinMessage.setOpacity(0);
