@@ -1,5 +1,7 @@
 package com.mygdx.game.starfish;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.Color;
@@ -254,5 +256,26 @@ public class BaseActor extends Actor {
             return null;
         this.moveBy(mtv.normal.x * mtv.depth, mtv.normal.y * mtv.depth);
         return mtv.normal;
+    }
+
+
+    public static ArrayList<BaseActor> getList(Stage stage, String className) {
+        ArrayList<BaseActor> list = new ArrayList<BaseActor>();
+        Class theClass = null;
+        try {
+            theClass = Class.forName(className);
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
+
+        for (Actor a : stage.getActors()) {
+            if (theClass.isInstance(a))
+                list.add((BaseActor) a);
+        }
+        return list;
+    }
+
+    public static int count(Stage stage, String className) {
+        return getList(stage, className).size();
     }
 }
