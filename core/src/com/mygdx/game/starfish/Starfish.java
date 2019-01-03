@@ -9,7 +9,7 @@ public class Starfish extends BaseActor {
     public Starfish(float x, float y, Stage s) {
         super(x, y, s);
 
-        loadTexture("assets/starfish.png");
+        loadTexture("starfish.png");
 
         Action spin = Actions.rotateBy(30, 1);
         addAction(Actions.forever(spin));
